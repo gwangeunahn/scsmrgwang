@@ -38,4 +38,35 @@ public class TbpostServiceimpl implements TbpostService {
 
         return tbpost.toCreateResDto();
     }
+
+    public TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param){
+
+        Tbpost tbpost = tbpostRepository.findById(param.getId()).orElseThrow(()->new RuntimeException("No Data"));
+        TbpostDto.DetailResDto detailResDto = TbpostDto.DetailResDto.builder()
+                .id(tbpost.getId())
+                .deleted(tbpost.getDeleted())
+                .process(tbpost.getProcess())
+                .createAt(tbpost.getCreatedAt() + "")
+                .modifiedAt(tbpost.getModifiedAt() + "")
+                .title(tbpost.getTitle())
+                .author(tbpost.getAuthor())
+                .content(tbpost.getContent())
+                .build();
+
+        return detailResDto;
+    }
+
+    public TbpostDto.UpdateResDto update(TbpostDto.UpdateReqDto param){
+
+        Tbpost tbpost = tbpostRepository.findById(param.getId()).orElseThrow(()->new RuntimeException("No Data"));
+        if(param.getTitle() != null){
+            tbpost.setTitle(param.getTitle());
+        }
+        if(param.getContent() != null){
+            tbpost.setContent(param.getContent());
+        }
+        tbpostRepository.save(tbpost);
+
+        return tbpost.toUpdateResDto();
+    }
 }

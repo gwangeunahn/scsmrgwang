@@ -17,7 +17,7 @@ public class TbpostDto {
     @NoArgsConstructor
     public static class CreateReqDto{
 
-        @Schema(description = "id", example = "")
+        @Schema(description = "title", example = "")
         @NotNull
         @NotEmpty
         @Size(max = 100)
@@ -74,5 +74,37 @@ public class TbpostDto {
         private String title;
         private String author;
         private String content;
+    }
+
+    @Builder
+    @Schema
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UpdateReqDto{
+
+        @Schema(description = "id", example = "")
+        @NotNull
+        @NotEmpty
+        private String id;
+
+        @Schema(description = "title", example = "")
+        @Size(max = 100)
+        private String title;
+
+        @Schema(description = "content", example="")
+        @Size(max=5000)
+        private String content;
+    }
+
+    @Builder
+    @Schema
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class UpdateResDto{
+        private String id;
     }
 }

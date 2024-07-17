@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+Tbpost
+
+<br>
+Id
+<input type="text" id="tbpost_id" />
+
+<button onclick="detail_tbpost()">Detail</button>
+
+<br>
+Title
+<input type="text" id="tbpost_title" />
+
+<br>
+Content
+<input type="text" id="tbpost_content"/>
+
+<br>
+<button onclick="update_tbpost()">Update</button>
+
+<script>
+
+    function detail_tbpost() {
+        $.ajax({
+            url: "/api/tbpost/",
+            type: "GET",
+            contentType : 'application/json; charset=utf-8',
+            data:{
+                id : $("#tbpost_id").val()
+            },
+            cache: false,
+            success: (data, status, xhr)=>{
+                //alert("success!!");
+                alert(JSON.stringify(data["id"]));
+                $("#tbpost_title").val(data["title"]);
+                $("#tbpost_content").val(data["content"]);
+            },
+            error: (data, status, xhr)=>{
+                alert("error!!");
+                alert(JSON.stringify(data));
+            }
+        })
+    }
+
+    function update_tbpost(){
+        $.ajax({
+            url: "/api/tbpost",
+            type: "PUT",
+            contentType : 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                id : $("#tbpost_id").val(),
+                title : $("#tbpost_title").val(),
+                content : $("#tbpost_content").val()
+            }),
+            cache: false,
+            success: (data, status, xhr)=>{
+                //alert("success!!");
+                alert(JSON.stringify(data));
+            },
+            error: (data, status, xhr)=>{
+                alert("error!!");
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+
+</script>
+
+
+</body>
+</html>

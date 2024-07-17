@@ -40,4 +40,8 @@ public class Tbpost extends AuditingFields{
         //두번째 방법( build를 이용하여 한줄로 return)
         return TbpostDto.CreateResDto.builder().id(this.getId()).build();
     }
+
+    public TbpostDto.UpdateResDto toUpdateResDto() {
+        return TbpostDto.UpdateResDto.builder().id(this.getId()).build();
+    }
 }
