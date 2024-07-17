@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+Tbpost
+
+<br>
+Title
+<input type="text" id="tbpost_title" />
+
+<br>
+Author
+<input type="text" id="tbpost_author" />
+
+<br>
+Content
+<input type="text" id="tbpost_content"/>
+
+<br>
+<button onclick="create_tbpost()">Create</button>
+
+<script>
+
+    function create_tbpost(){
+        $.ajax({
+            url: "/api/tbpost",
+            type: "POST",
+            contentType : 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                title : $("#tbpost_title").val(),
+                author : $("#tbpost_author").val(),
+                content : $("#tbpost_content").val()
+            }),
+            cache: false,
+            success: (data, status, xhr)=>{
+                //alert("success!!");
+                alert(JSON.stringify(data));
+            },
+            error: (data, status, xhr)=>{
+                alert("error!!");
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+</script>
+
+</body>
+</html>
