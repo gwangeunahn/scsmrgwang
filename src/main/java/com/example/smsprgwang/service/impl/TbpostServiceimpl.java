@@ -1,17 +1,26 @@
-package com.example.scsmrgwang.service.impl;
+package com.example.smsprgwang.service.impl;
 
-import com.example.scsmrgwang.domain.Tbpost;
-import com.example.scsmrgwang.dto.TbpostDto;
-import com.example.scsmrgwang.repository.TbpostRepository;
-import com.example.scsmrgwang.service.TbpostService;
+import com.example.smsprgwang.domain.Tbpost;
+import com.example.smsprgwang.dto.TbpostDto;
+import com.example.smsprgwang.mapper.TbpostMapper;
+import com.example.smsprgwang.repository.TbpostRepository;
+import com.example.smsprgwang.service.TbpostService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TbpostServiceimpl implements TbpostService {
 
     private TbpostRepository tbpostRepository;
-    public TbpostServiceimpl(TbpostRepository tbpostRepository) { this.tbpostRepository = tbpostRepository; }
+    private TbpostMapper tbpostMapper;
+    public TbpostServiceimpl(TbpostRepository tbpostRepository, TbpostMapper tbpostMapper) {
+        this.tbpostRepository = tbpostRepository;
+        this.tbpostMapper = tbpostMapper;
+    }
 
+    @Override
     public TbpostDto.CreateResDto create(TbpostDto.CreateReqDto param){
 
         /* 첫번째 방법( 이후 Tbpost에 protected로 생성자 만들면 작동안됨 )
@@ -39,23 +48,7 @@ public class TbpostServiceimpl implements TbpostService {
         return tbpost.toCreateResDto();
     }
 
-    public TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param){
-
-        Tbpost tbpost = tbpostRepository.findById(param.getId()).orElseThrow(()->new RuntimeException("No Data"));
-        TbpostDto.DetailResDto detailResDto = TbpostDto.DetailResDto.builder()
-                .id(tbpost.getId())
-                .deleted(tbpost.getDeleted())
-                .process(tbpost.getProcess())
-                .createAt(tbpost.getCreatedAt() + "")
-                .modifiedAt(tbpost.getModifiedAt() + "")
-                .title(tbpost.getTitle())
-                .author(tbpost.getAuthor())
-                .content(tbpost.getContent())
-                .build();
-
-        return detailResDto;
-    }
-
+    @Override
     public TbpostDto.UpdateResDto update(TbpostDto.UpdateReqDto param){
 
         Tbpost tbpost = tbpostRepository.findById(param.getId()).orElseThrow(()->new RuntimeException("No Data"));
@@ -69,4 +62,40 @@ public class TbpostServiceimpl implements TbpostService {
 
         return tbpost.toUpdateResDto();
     }
+
+    @Override
+    public TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param){
+
+        /* 첫번째 방법 ( repository 이용 )
+        Tbpost tbpost = tbpostRepository.findById(param.getId()).orElseThrow(()->new RuntimeException("No Data"));
+        TbpostDto.DetailResDto detailResDto = TbpostDto.DetailResDto.builder()
+                .id(tbpost.getId())
+                .deleted(tbpost.getDeleted())
+                .process(tbpost.getProcess())
+                .createAt(tbpost.getCreatedAt() + "")
+                .modifiedAt(tbpost.getModifiedAt() + "")
+                .title(tbpost.getTitle())
+                .author(tbpost.getAuthor())
+                .content(tbpost.getContent())
+                .build();
+
+        return detailResDto;*/
+
+        //두번째 ( mapper 이용 )
+        TbpostDto.DetailResDto detailResDto = tbpostMapper.detail(param);
+        if(detailResDto==null){ throw new RuntimeException("No Data"); }
+
+        return detailResDto;
+    }
+
+    public List<TbpostDto.ListResDto> list(TbpostDto.ListReqDto param){
+
+        List<TbpostDto.ListResDto> list = new ArrayList<>();
+        for(TbpostDto.ListResDto each : tbpostMapper.list(param)){
+            list.add(detail(TbpostDto.DetailReqDto.builder().id(each.getId()).build()));
+        }
+
+        return list;
+    }
+
 }

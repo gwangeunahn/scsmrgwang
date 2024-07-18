@@ -1,6 +1,6 @@
-package com.example.scsmrgwang.domain;
+package com.example.smsprgwang.domain;
 
-import com.example.scsmrgwang.dto.TbpostDto;
+import com.example.smsprgwang.dto.TbpostDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

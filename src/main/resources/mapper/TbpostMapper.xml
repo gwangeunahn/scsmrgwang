@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.smsprgwang.mapper.TbpostMapper">
+
+    <!--mapper로 detail을 구현하기 위한 query문-->
+    <select id="detail" parameterType="hashMap" resultType="com.example.smsprgwang.dto.TbpostDto$DetailResDto">
+        SELECT tbpost.id,
+               tbpost.deleted,
+               tbpost.process,
+               tbpost.created_at as createdAt,
+               tbpost.modified_at as modifiedAt,
+
+               tbpost.title,
+               tbpost.author,
+               tbpost.content
+        FROM tbpost
+        WHERE tbpost.id = #{id}
+    </select>
+
+    <!--mapper로 list을 구현하기 위한 query문-->
+    <select id="list" parameterType="hashMap" resultType="com.example.smsprgwang.dto.TbpostDto$ListResDto">
+        SELECT tbpost.id
+        FROM tbpost
+        WHERE tbpost.id is not NULL
+        <if test = "deleted != null and deleted !=''">AND tbpost.deleted = #{deleted}</if>
+        <if test = "title != null and title !=''">AND tbpost.title LIKE CONCAT('%', #{title}, '%')</if>
+        <if test = "author != null and author !=''">AND tbpost.author LIKE CONCAT('%', #{author}, '%')</if>
+        ORDER BY tbpost.created_at DESC
+    </select>
+
+</mapper>

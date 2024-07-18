@@ -1,6 +1,6 @@
-package com.example.scsmrgwang.repository;
+package com.example.smsprgwang.repository;
 
-import com.example.scsmrgwang.domain.Tbpost;
+import com.example.smsprgwang.domain.Tbpost;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.example.scsmrgwang.domain;
+package com.example.smsprgwang.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

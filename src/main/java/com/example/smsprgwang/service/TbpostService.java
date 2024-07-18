@@ -1,9 +1,9 @@
-package com.example.scsmrgwang.service;
+package com.example.smsprgwang.service;
 
-import com.example.scsmrgwang.dto.TbpostDto;
+import com.example.smsprgwang.dto.TbpostDto;
 
 public interface TbpostService {
     TbpostDto.CreateResDto create(TbpostDto.CreateReqDto param);
-    TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param);
     TbpostDto.UpdateResDto update(TbpostDto.UpdateReqDto param);
+    TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param);
 }

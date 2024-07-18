@@ -1,4 +1,4 @@
-package com.example.scsmrgwang.controller.page;
+package com.example.smsprgwang.controller.page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

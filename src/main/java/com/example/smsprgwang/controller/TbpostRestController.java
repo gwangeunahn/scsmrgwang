@@ -1,7 +1,7 @@
-package com.example.scsmrgwang.controller;
+package com.example.smsprgwang.controller;
 
-import com.example.scsmrgwang.dto.TbpostDto;
-import com.example.scsmrgwang.service.TbpostService;
+import com.example.smsprgwang.dto.TbpostDto;
+import com.example.smsprgwang.service.TbpostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
