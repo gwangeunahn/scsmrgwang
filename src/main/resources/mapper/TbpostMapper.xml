@@ -18,7 +18,7 @@
     </select>
 
     <!--mapper로 list을 구현하기 위한 query문-->
-    <select id="list" parameterType="hashMap" resultType="com.example.smsprgwang.dto.TbpostDto$ListResDto">
+    <select id="list" parameterType="hashMap" resultType="com.example.smsprgwang.dto.TbpostDto$DetailResDto">
         SELECT tbpost.id
         FROM tbpost
         WHERE tbpost.id is not NULL

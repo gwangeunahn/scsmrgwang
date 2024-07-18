@@ -88,10 +88,10 @@ public class TbpostServiceimpl implements TbpostService {
         return detailResDto;
     }
 
-    public List<TbpostDto.ListResDto> list(TbpostDto.ListReqDto param){
+    public List<TbpostDto.DetailResDto> list(TbpostDto.ListReqDto param){
 
-        List<TbpostDto.ListResDto> list = new ArrayList<>();
-        for(TbpostDto.ListResDto each : tbpostMapper.list(param)){
+        List<TbpostDto.DetailResDto> list = new ArrayList<>();
+        for(TbpostDto.DetailResDto each : tbpostMapper.list(param)){
             list.add(detail(TbpostDto.DetailReqDto.builder().id(each.getId()).build()));
         }
 

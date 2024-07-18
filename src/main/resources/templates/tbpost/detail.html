@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update</title>
+    <title>Detail</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
@@ -27,6 +27,27 @@ Content
 <button onclick="update_tbpost()">Update</button>
 
 <script>
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        detail_tbpost();
+    });
+</script>
+
+<script>
+    function getIdFromUrl(obj){
+        let temp_url_with_idx = obj;
+        if(obj == null){
+            temp_url_with_idx = window.location.href;
+            // => http://localhost:8080/tbpost/detail/963e1e8f040a43a88d5213598aaebc61
+        }
+        let split_slash_temp_idx = temp_url_with_idx.split('/');
+        let temp_idx = split_slash_temp_idx[split_slash_temp_idx.length - 1];
+        let split_question_temp_idx = temp_idx.split('?');
+        if(split_question_temp_idx.length > 0){
+            temp_idx = split_question_temp_idx[0];
+        }
+        return temp_idx;
+    }
 
     function detail_tbpost() {
         $.ajax({
@@ -34,7 +55,7 @@ Content
             type: "GET",
             contentType : 'application/json; charset=utf-8',
             data:{
-                id : $("#tbpost_id").val()
+                id : getIdFromUrl(null)
             },
             cache: false,
             success: (data, status, xhr)=>{

@@ -144,38 +144,13 @@ public class TbpostDto {
     @NoArgsConstructor
     public static class ListReqDto{
 
+        @Schema(description = "deleted", example="")
+        private String deleted;
+
         @Schema(description = "title", example = "")
         private String title;
 
         @Schema(description = "content", example="")
-        private String author;
-
-    }
-
-    @Builder
-    @Schema
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ListResDto{
-
-        @Schema(description = "id", example = "")
-        private String id;
-
-        @Schema(description = "deleted", example = "")
-        private String deleted;
-
-        @Schema(description = "createdAt", example = "")
-        private String createdAt;
-
-        @Schema(description = "modifiedAt", example = "")
-        private String modifiedAt;
-
-        @Schema(description = "title", example = "")
-        private String title;
-
-        @Schema(description = "Author", example = "")
         private String author;
 
     }

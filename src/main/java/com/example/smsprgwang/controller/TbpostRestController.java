@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "1-1. 게시글 API 안내",
         description = "게시글 관련 기능 정의한 RestController.")
 @RequestMapping("/api/tbpost")
@@ -50,4 +52,17 @@ public class TbpostRestController {
     public ResponseEntity<TbpostDto.UpdateResDto> update(@Valid @RequestBody TbpostDto.UpdateReqDto param){
         return ResponseEntity.status(HttpStatus.OK).body(tbpostService.update(param));
     }
+
+    @Operation(summary = "게시글 목록 전체 조회",
+            description = "게시글 목록 전체 조회 컨트롤러 <br />"
+                    + "@param TbpostDto.ListReqDto <br />"
+                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.SelectResDto\\> <br />"
+                    + "@exception 필수 파라미터 누락하였을 때 등 <br />"
+    )
+    @GetMapping("/list")
+    public ResponseEntity<List<TbpostDto.DetailResDto>> list(@Valid TbpostDto.ListReqDto param){
+        return ResponseEntity.status(HttpStatus.OK).body(tbpostService.list(param));
+    }
+
+
 }
