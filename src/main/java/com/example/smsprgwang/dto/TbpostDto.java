@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 public class TbpostDto {
 
     @Builder
@@ -154,5 +156,50 @@ public class TbpostDto {
         private String author;
 
     }
+
+    @Builder
+    @Schema
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PagedListReqDto{
+
+        @Schema(description = "deleted", example="")
+        private String deleted;
+        @Schema(description = "title", example="")
+        private String title;
+        @Schema(description = "author", example="")
+        private String author;
+
+        @Schema(description = "orderby", example="")
+        private String orderby;
+        @Schema(description = "orderway", example="")
+        private String orderway;
+        @Schema(description = "offset", example="")
+        private Integer offset;
+        @Schema(description = "perpage", example="")
+        private Integer perpage;
+        @Schema(description = "callpage", example="")
+        private Integer callpage;
+    }
+
+    @Builder
+    @Schema
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PagedListResDto{
+
+        private Integer callpage;
+        private Integer perpage;
+        private String orderby;
+        private String orderway;
+        private Integer listsize;
+        private Integer pagesize;
+        private List<DetailResDto> list;
+    }
+
 
 }

@@ -9,5 +9,6 @@ public interface TbpostService {
     TbpostDto.UpdateResDto update(TbpostDto.UpdateReqDto param);
     TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param);
     List<TbpostDto.DetailResDto> list(TbpostDto.ListReqDto param);
+    TbpostDto.PagedListResDto pagedList(TbpostDto.PagedListReqDto param);
 
 }

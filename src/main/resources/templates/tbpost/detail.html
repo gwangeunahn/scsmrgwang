@@ -10,21 +10,17 @@
 Tbpost
 
 <br>
-Id
-<input type="text" id="tbpost_id" />
-
-<button onclick="detail_tbpost()">Detail</button>
-
-<br>
-Title
+Title :
 <input type="text" id="tbpost_title" />
 
-<br>
-Content
+
+Content :
 <input type="text" id="tbpost_content"/>
 
-<br>
 <button onclick="update_tbpost()">Update</button>
+
+<br>
+<div id="div_tbpost_detail"></div>
 
 <script>
     $( document ).ready(function() {
@@ -38,7 +34,6 @@ Content
         let temp_url_with_idx = obj;
         if(obj == null){
             temp_url_with_idx = window.location.href;
-            // => http://localhost:8080/tbpost/detail/963e1e8f040a43a88d5213598aaebc61
         }
         let split_slash_temp_idx = temp_url_with_idx.split('/');
         let temp_idx = split_slash_temp_idx[split_slash_temp_idx.length - 1];
@@ -63,6 +58,16 @@ Content
                 alert(JSON.stringify(data["id"]));
                 $("#tbpost_title").val(data["title"]);
                 $("#tbpost_content").val(data["content"]);
+                $("#div_tbpost_detail").append(
+                    "<div>Id : " + data["id"] +
+                    "<br> Deleted : " + data["deleted"] +
+                    "<br> Process : " + data["process"] +
+                    "<br>CreatedAt : " + data["createdAt"] +
+                    "<br>ModifiedAt : " + data["modifiedAt"] +
+                    "<br>Title : " + data["title"] +
+                    "<br>Author : " + data["author"] +
+                    "<br>Content : " + data["content"] +"</div>"
+                );
             },
             error: (data, status, xhr)=>{
                 alert("error!!");
@@ -77,7 +82,7 @@ Content
             type: "PUT",
             contentType : 'application/json; charset=utf-8',
             data: JSON.stringify({
-                id : $("#tbpost_id").val(),
+                id : getIdFromUrl(null),
                 title : $("#tbpost_title").val(),
                 content : $("#tbpost_content").val()
             }),

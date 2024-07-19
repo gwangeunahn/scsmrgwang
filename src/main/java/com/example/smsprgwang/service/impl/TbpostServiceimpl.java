@@ -88,6 +88,7 @@ public class TbpostServiceimpl implements TbpostService {
         return detailResDto;
     }
 
+    @Override
     public List<TbpostDto.DetailResDto> list(TbpostDto.ListReqDto param){
 
         List<TbpostDto.DetailResDto> list = new ArrayList<>();
@@ -96,6 +97,58 @@ public class TbpostServiceimpl implements TbpostService {
         }
 
         return list;
+    }
+
+    @Override
+    public TbpostDto.PagedListResDto pagedList(TbpostDto.PagedListReqDto param){
+
+        String orderby = param.getOrderby();
+        if(orderby==null || orderby.isEmpty()){ orderby = "created_at"; }
+
+        String orderway = param.getOrderway();
+        if(orderway==null || orderway.isEmpty()){ orderway = "desc"; }
+
+        Integer perpage = param.getPerpage();
+        if(perpage==null || perpage<1){ perpage = 10; }
+
+        Integer callpage = param.getCallpage();
+        if(callpage==null || callpage<1){ callpage = 1; }
+
+        int listsize = tbpostMapper.pagedListCount(param);
+
+        int pagesize = listsize / perpage;
+        if(listsize%perpage!=0){
+            pagesize++;
+        }
+
+        if(callpage>pagesize){
+            callpage = pagesize;
+        }
+
+        int offset = (callpage-1)*pagesize;
+        param.setOrderby(orderby);
+        param.setOrderway(orderway);
+        param.setOffset(offset);
+        param.setPerpage(perpage);
+
+        List<TbpostDto.DetailResDto> list = tbpostMapper.pagedList(param);
+        List<TbpostDto.DetailResDto> newList = new ArrayList<>();
+        for(TbpostDto.DetailResDto each : list){
+            newList.add(detail(TbpostDto.DetailReqDto.builder().id(each.getId()).build()));
+        }
+
+        TbpostDto.PagedListResDto returnVal =
+                TbpostDto.PagedListResDto.builder()
+                        .callpage(callpage)
+                        .perpage(perpage)
+                        .orderby(orderby)
+                        .orderway(orderway)
+                        .listsize(listsize)
+                        .pagesize(pagesize)
+                        .list(newList)
+                        .build();
+
+        return returnVal;
     }
 
 }

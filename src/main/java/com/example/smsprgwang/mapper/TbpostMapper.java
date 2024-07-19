@@ -7,4 +7,6 @@ import java.util.List;
 public interface TbpostMapper {
     TbpostDto.DetailResDto detail(TbpostDto.DetailReqDto param);
     List<TbpostDto.DetailResDto> list(TbpostDto.ListReqDto param);
+    int pagedListCount(TbpostDto.PagedListReqDto param);
+    List<TbpostDto.DetailResDto> pagedList(TbpostDto.PagedListReqDto param);
 }

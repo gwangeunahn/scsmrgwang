@@ -64,4 +64,15 @@ public class TbpostRestController {
         return ResponseEntity.status(HttpStatus.OK).body(tbpostService.list(param));
     }
 
+    @Operation(summary = "게시글 목록 페이지 조회",
+            description = "게시글 목록 페이지 조회 컨트롤러 <br />"
+                    + "@param TbpostDto.PagedListReqDto <br />"
+                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.PagedListResDto\\> <br />"
+                    + "@exception 필수 파라미터 누락하였을 때 등 <br />"
+    )
+    @GetMapping("/pagedlist")
+    public ResponseEntity<TbpostDto.PagedListResDto> pagedlist(@Valid TbpostDto.PagedListReqDto param){
+        return ResponseEntity.status(HttpStatus.OK).body(tbpostService.pagedList(param));
+    }
+
 }
