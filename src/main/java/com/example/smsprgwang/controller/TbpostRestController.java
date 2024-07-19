@@ -31,21 +31,10 @@ public class TbpostRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(tbpostService.create(param));
     }
 
-    @Operation(summary = "게시글 조회",
-            description = "게시글 조회 컨트롤러 (사용자만 접근 가능) <br />"
-                    + "@param TbpostDto.SelectReqDto <br />"
-                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.SelectResDto\\> <br />"
-                    + "@exception 필수 파라미터 누락하였을 때 등 <br />"
-    )
-    @GetMapping("")
-    public ResponseEntity<TbpostDto.DetailResDto> detail(@Valid TbpostDto.DetailReqDto param) {
-        return ResponseEntity.status(HttpStatus.OK).body(tbpostService.detail(param));
-    }
-
     @Operation(summary = "게시글 수정",
             description = "게시글 수정 컨트롤러 (사용자만 접근 가능) <br />"
                     + "@param TbpostDto.UpdateReqDto <br />"
-                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.CreateResDto\\> <br />"
+                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.UpdateResDto\\> <br />"
                     + "@exception 필수 파라미터 누락하였을 때 등 <br />"
     )
     @PutMapping("")
@@ -53,16 +42,26 @@ public class TbpostRestController {
         return ResponseEntity.status(HttpStatus.OK).body(tbpostService.update(param));
     }
 
+    @Operation(summary = "게시글 조회",
+            description = "게시글 조회 컨트롤러 (사용자만 접근 가능) <br />"
+                    + "@param TbpostDto.DetailReqDto <br />"
+                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.DetailResDto\\> <br />"
+                    + "@exception 필수 파라미터 누락하였을 때 등 <br />"
+    )
+    @GetMapping("")
+    public ResponseEntity<TbpostDto.DetailResDto> detail(@Valid TbpostDto.DetailReqDto param) {
+        return ResponseEntity.status(HttpStatus.OK).body(tbpostService.detail(param));
+    }
+
     @Operation(summary = "게시글 목록 전체 조회",
             description = "게시글 목록 전체 조회 컨트롤러 <br />"
                     + "@param TbpostDto.ListReqDto <br />"
-                    + "@return HttpStatus.OK(200) ResponseEntity\\<TbpostDto.SelectResDto\\> <br />"
+                    + "@return HttpStatus.OK(200) ResponseEntity\\<list<TbpostDto.DetailResDto>\\> <br />"
                     + "@exception 필수 파라미터 누락하였을 때 등 <br />"
     )
     @GetMapping("/list")
     public ResponseEntity<List<TbpostDto.DetailResDto>> list(@Valid TbpostDto.ListReqDto param){
         return ResponseEntity.status(HttpStatus.OK).body(tbpostService.list(param));
     }
-
 
 }
